@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Course;
+use App\Models\Video;
 use Illuminate\Support\Carbon;
 
 use Juampi92\TestSEO\TestSEO;
@@ -54,7 +55,6 @@ it('includes login if not logged in', function () {
         ->assertOk()
         ->assertSeeText('Login')
         ->assertSee(route('login'));
-
 });
 
 it('includes logout if logged in', function () {
@@ -64,7 +64,6 @@ it('includes logout if logged in', function () {
         ->assertOk()
         ->assertSeeText('Dashboard')
         ->assertSee(route('pages.dashboard'));
-
 });
 
 it('includes courses links', function () {
@@ -113,3 +112,21 @@ it('includes social tags', function () {
         ->openGraph()->image()->toBe(asset('images/social.png'))
         ->twitter()->card->toBe('summary_large_image');
 });
+
+it('video is purchased it sends you to course videos', function () {
+    // Arrange
+    $user = loginAsUser();
+    $course = Course::factory()->released()->has(Video::factory(3))->create();
+
+    $user->purchasedCourses()->attach($course);
+
+    get(route('pages.course-details', $course))
+        ->assertRedirect(route('pages.course-videos', $course));
+});
+
+
+it('', function () {
+    // Arrange
+
+})->todo();
+
