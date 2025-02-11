@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Course;
 
 class PageHomeController extends Controller
@@ -13,6 +14,10 @@ class PageHomeController extends Controller
             ->orderByDesc('released_at')
             ->get();
 
-        return view('pages.home', compact('courses'));
+        $categories = Category::query()
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.home', compact(['courses', 'categories']));
     }
 }

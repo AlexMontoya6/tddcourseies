@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             AddGivenCoursesSeeder::class,
             AddGivenVideosSeeder::class,
             AddLocalTestUserSeeder::class,
+            AddCategorySeeder::class,
         ]);
     }
 }

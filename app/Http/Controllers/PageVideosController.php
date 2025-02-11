@@ -11,6 +11,8 @@ class PageVideosController extends Controller
     {
         $video = $video->exists ? $video : $course->videos->first();
 
-        return view('pages.course-videos', compact('video'));
+        $categories = $course->categoryCourses()->get();
+
+        return view('pages.course-videos', compact(['video', 'categories']));
     }
 }

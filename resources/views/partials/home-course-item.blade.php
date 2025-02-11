@@ -12,7 +12,7 @@
                 <a href="#" class="hover:underline">Video course</a>
             </p>
             <a href="{{ route('pages.course-details', $course) }}" class="mt-2 block">
-                <p class="text-xl font-semibold text-gray-900">{{ $course->title }}e</p>
+                <p class="text-xl font-semibold text-gray-900">{{ $course->title }}</p>
                 <p class="mt-3 text-base text-gray-500">{{ $course->description }}</p>
             </a>
         </div>

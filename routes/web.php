@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\PageCourseDetailsController;
 use App\Http\Controllers\PageDashboardController;
@@ -19,10 +20,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', PageHomeController::class)->name('pages.home');
-Route::resource('courses', CourseController::class);
+Route::resource('courses', CourseController::class)->names('courses')->parameters(['courses', 'course']);
 
 Route::get('courses/{course:slug}', PageCourseDetailsController::class)
     ->name('pages.course-details');
+
+Route::get('category-list/{category}', [CategoryController::class, 'index'])
+    ->name('pages.category-list');
+
+Route::post('category', [CategoryController::class, 'store'])
+    ->name('category.store');
 
 Route::middleware([
     'auth:sanctum',
