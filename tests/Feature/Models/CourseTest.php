@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Video;
 
@@ -23,4 +24,21 @@ it('has videos', function () {
     expect($course->videos)
         ->toHaveCount(3)
         ->each->toBeInstanceOf(Video::class);
+});
+
+it('show category in course', function () {
+    // Arrange
+    $course = Course::factory()->create();
+    $category = Category::create(['name' => 'cat1']);
+    $category2 = Category::create(['name' => 'cat2']);
+
+    $course->categoryCourses()->attach([$category->id, $category2->id]);
+
+    // Act & Assert
+    expect($course->categoryCourses)
+        ->toHaveCount(2)
+        ->each->toBeInstanceOf(Category::class);
+
+    expect($course->categoryCourses->pluck('name')->toArray())
+        ->toEqual(['cat1', 'cat2']);
 });
